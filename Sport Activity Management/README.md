@@ -15,6 +15,6 @@ To run this program, you will need to have a C compiler (such as GCC or Clang) a
 # Files
 The project consists of the following files:
 
-main.c: the main file that contains the main() function and the program's menu.
-Structs.h: The header file that contains the definitions of the structures used in the program.
-Funcs.h: The header file that contains the function declarations used in the program.
+- main.c: the main file that contains the main() function and the program's menu.
+- Structs.h: The header file that contains the definitions of the structures used in the program.
+- Funcs.h: The header file that contains the function declarations used in the program.
