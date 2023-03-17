@@ -3,6 +3,7 @@ This is a repository containing projects that I developed during my time in coll
 
 # List of Projects
 Project 1: Sport Activity Management
+Project 2: Sustainable Mobility Management
 
 # Author
 Thiago Yabuki de Araujo - yabukithiago@gmail.com
