@@ -25,6 +25,8 @@ int main() {
     
 
     manager_inicio = insertManagerStart(manager_inicio, 10, "Gaba");
+    manager_inicio = insertManagerStart(manager_inicio, 100, "Raze");
+    ListarManager(manager_inicio);
 
     client_inicio = insertClientStart(client_inicio, 1, 313780200, "Thiago", "Rua do Queimado", 1000.00);
     client_inicio = insertClientStart(client_inicio, 2, 987654321, "Isabela", "Rua do Queimado", 5000.00);
@@ -35,25 +37,21 @@ int main() {
     meio_inicio = insertMeioStart(meio_inicio, 10, "Trotinete", 10.00, 1.50, 250, "Braga", "Available");
     meio_inicio = insertMeioStart(meio_inicio, 15, "Skate Eletrico", 80.00, 3.00, 50, "Porto", "Available");
     meio_inicio = insertMeioStart(meio_inicio, 20, "Bike Eletrica", 60.00, 10, 400, "Lisboa", "Available");
-
-    ListarManager(manager_inicio);
-    ListarMeio(meio_inicio);
+    meio_inicio = insertMeioStart(meio_inicio, 25, "Moto Eletrica", 100.00, 15.00, 600, "Barcelos", "Available");
+    
 
     client_inicio = changeClient(client_inicio, 1, 777777777, "Tiago", "Rua da Industria", 3000.00);
     meio_inicio = changeMeio(meio_inicio, 5, "Trotinete", 80.00, 3.00, 300);
-    ListarMeio(meio_inicio);
 
     client_inicio = removeClient(client_inicio, 1);
-    ListarClient(client_inicio);
-
     meio_inicio = removeMeio(meio_inicio, 20);
-    ListarMeio(meio_inicio);
 
     rent_inicio = inserirAluguer(rent_inicio, client_inicio, 20, 4, 1, "Jessica", 10.00);
-    rent_inicio = inserirAluguer(rent_inicio, client_inicio, 5, 2, 2, "Isabela", 25.00);
-    guardarAluguer(rent_inicio);
+    rent_inicio = inserirAluguer(rent_inicio, client_inicio, 10, 2, 2, "Isabela", 1.50);
+    listarRent(rent_inicio);
 
     listMeanAutonomy(meio_inicio, "MeansAutonomy.txt");
+    listarMeioGeocodigo(meio_inicio, "Barcelos");
 
     meio_inicio = lerBinario();
     imprimirBinEmTxt();

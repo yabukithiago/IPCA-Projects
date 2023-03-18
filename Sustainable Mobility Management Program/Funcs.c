@@ -291,7 +291,7 @@ Client* insertClientStart(Client* inicio, int identidade, int nif, char nome[], 
 
     client_inicio->c_next = inicio;
     inicio = client_inicio;
-
+    ListarClient(inicio);
     return client_inicio;
 }
 
@@ -381,6 +381,7 @@ Client* removeClient(Client* inicio, int identidade) {
     else if (current->id == identidade) {
         inicio = current->c_next;
         free(current);
+        ListarClient(inicio);
         return (inicio);
     }
 
@@ -394,6 +395,7 @@ Client* removeClient(Client* inicio, int identidade) {
         else {
             previous->c_next = current->c_next;
             free(current);
+            ListarClient(inicio);
             return(inicio);
         }
     }
@@ -515,7 +517,7 @@ Meio* changeMeio(Meio* inicio, int codigo, char novoTipo[], float novaBateria, f
 }
 
 /**
- * @brief Fun��o que procura um meio de transporte na lista de meios de transporte e retorna o seu endere�o de mem�ria.
+ * @brief Funçãoo que procura um meio de transporte na lista de meios de transporte e retorna o seu endereço de memória.
  *
  * \param inicio
  * \param codigo
@@ -534,7 +536,7 @@ Meio* findMeio(Meio* inicio, int codigo) {
 }
 
 /**
- * @brief Fun��o que remove um meio de transporte da lista de meios de transporte do sistema.
+ * @brief Função que remove um meio de transporte da lista de meios de transporte do sistema.
  *
  * \param inicio
  * \param codigo
@@ -564,7 +566,7 @@ Meio* removeMeio(Meio* inicio, int codigo) {
 }
 
 /**
- * @brief Fun��o que lista os meios de transporte dispon�veis e salva em um arquivo .txt e .bin.
+ * @brief Função que lista os meios de transporte disponíveis e salva em um arquivo de texto e binário.
  *
  * \param inicio
  */
@@ -588,16 +590,16 @@ void ListarMeio(Meio* inicio) {
 }
 
 /**
- * @brief Funcao que lista os meios de transporte ordenados por autonomia de forma decrescente em um arquivo.
+ * @brief Funcao que lista os meios de transporte ordenados por autonomia de forma decrescente em um arquivo de texto.
  *
  * \param inicio
  * \param nome_arquivo
  */
 void listMeanAutonomy(Meio* inicio, char* nome_arquivo) {
-    FILE* arquivo = fopen(nome_arquivo, "w");
+    FILE* fp = fopen(nome_arquivo, "w");
 
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo!\n");
+    if (fp == NULL) {
+        printf("Error creating file!\n");
         return;
     }
 
@@ -625,14 +627,41 @@ void listMeanAutonomy(Meio* inicio, char* nome_arquivo) {
         }
     }
 
-    fprintf(arquivo, "Means ordered in descending order by autonomy:\n");
+    fprintf(fp, "Means ordered in descending order by autonomy:\n");
     for (int i = 0; i < num_meios; i++) {
-        fprintf(arquivo, "Code: %d \t| Type: %15s \t| Battery: %7.2f \t| Cost: %2.2f \t| Autonomy: %2.2f \t|\n", meio_vetor[i]->code, meio_vetor[i]->type, meio_vetor[i]->battery, meio_vetor[i]->cost, meio_vetor[i]->autonomy);
+        fprintf(fp, "Code: %d \t| Type: %15s \t| Battery: %7.2f \t| Cost: %2.2f \t| Autonomy: %2.2f \t|\n", meio_vetor[i]->code, meio_vetor[i]->type, meio_vetor[i]->battery, meio_vetor[i]->cost, meio_vetor[i]->autonomy);
     }
 
-    fclose(arquivo);
+    fclose(fp);
     free(meio_vetor);
 }
+
+/**
+ * @brief Funcao que lista os meios de transporte ordenados pela localização em um arquivo de texto.
+ * 
+ * \param inicio
+ * \param geocodigo
+ */
+void listarMeioGeocodigo(Meio* inicio, char* geocodigo) {
+    FILE* fp = fopen("MeansTransportGeocode.txt", "w");
+    if (fp == NULL) {
+        printf("Error creating file!\n");
+        exit(1);
+    }
+
+    Meio* meio_atual = inicio;
+
+    fprintf(fp, "Mode of transport filtered by location:\n");
+    while (meio_atual != NULL) {
+        if (strcmp(meio_atual->geocodigo, geocodigo) == 0) {
+            fprintf(fp, "Code: %d \t| Type: %15s \t| Battery: %7.2f \t| Cost: %2.2f \t| Autonomy: %2.2f \t| Status: %11s \t| Geocode: %11s\t | \n", meio_atual->code, meio_atual->type, meio_atual->battery, meio_atual->cost, meio_atual->autonomy, meio_atual->status, meio_atual->geocodigo);
+        }
+        meio_atual = meio_atual->ME_next;
+    }
+
+    fclose(fp);
+}
+
 #pragma endregion
 
 #pragma region Rent
@@ -643,9 +672,9 @@ void listMeanAutonomy(Meio* inicio, char* nome_arquivo) {
  * \param inicio
  * \return 
  */
-int guardarAluguer(Rent* inicio){
+int listarRent(Rent* inicio){
     FILE* fp;
-    fp = fopen("RegistrationOfRents.txt", "w");
+    fp = fopen("RegistrationOfRents.txt", "a");
 
     if (fp != NULL){
 
@@ -660,7 +689,6 @@ int guardarAluguer(Rent* inicio){
         return(1);
     }
     else return(0);
-
 }
 
 /**
@@ -718,7 +746,6 @@ Rent* inserirAluguer(Rent* inicio, Client* cinicio, int codigo, int identidade, 
         changeClient(cinicio, aux->id, aux->nif, aux->name,
             aux->adress, aux->bankbalance);
     }
-
     return novoAluguer;
 }
 

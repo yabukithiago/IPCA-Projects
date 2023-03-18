@@ -169,11 +169,14 @@ void ListarMeio(Meio* inicio);
 //Função para listar os meios de transporte por ordem decrescente de autonomia.
 void listMeanAutonomy(Meio* inicio, char* nome_arquivo);
 
+//Função para listar os meios de transporte em uma certa localização.
+void listarMeioGeocodigo(Meio* inicio, char* geocodigo);
+
 #pragma endregion
 
 #pragma region Rent
 //Função para guardar um aluguer.
-int guardarAluguer(Rent* inicio);
+int listarRent(Rent* inicio);
 
 //Função para ler um aluguer.
 Rent* lerAluguer(Client* inicio);
