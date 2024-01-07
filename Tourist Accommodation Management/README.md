@@ -1,5 +1,5 @@
 # Tourist Accommodation Management.
-This program is written in the C# programming language and is designed to manage tourist accommodation. It includes various functions related to the management of room rentals, such as the visualization of data on rentals made by clients, a list of available rooms, the possibility of removing, changing, inserting rooms by saving them in files, among others. The program also allows you to create and store accounts to use the software.
+This program was written together with @gabrieljtmelo in the C# programming language and is designed to manage tourist accommodation. It includes various functions related to the management of room rentals, such as the visualization of data on rentals made by clients, a list of available rooms, the possibility of removing, changing and inserting rooms by saving them in files, among others. The program also allows you to create and store accounts for use with the software.
 
 # Prerequisites
 To run this program in C#, you will need to have .NET Core installed on your computer. Use an integrated development environment (IDE) such as Visual Studio or Visual Studio Code to edit the source code.
